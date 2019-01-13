@@ -4,8 +4,7 @@
 #
 
 SOURCES = source/*.c
-# LIBS = -largp
-LIBS =
+LIBS = -lcurl
 DEBUG = -Wall -ggdb3
 
 all: clean compile
