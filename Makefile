@@ -6,6 +6,7 @@
 SOURCES = source/*.c
 LIBS = -lcurl
 DEBUG = -Wall -ggdb3
+FLAGS = -std=c99
 
 all: clean compile
 
@@ -14,11 +15,11 @@ clean:
 
 compile:
 	@mkdir -p bin
-	gcc ${DEBUG} ${LIBS} ${SOURCES} -o bin/link-checker
+	gcc ${DEBUG} ${FLAGS} ${LIBS} ${SOURCES} -o bin/link-checker
 
 release: clean
 	@mkdir -p bin
-	gcc ${LIBS} ${SOURCES} -o bin/link-checker
+	gcc ${FLAGS} ${LIBS} ${SOURCES} -o bin/link-checker
 
 # vim:ft=make
 #
