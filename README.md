@@ -1,5 +1,7 @@
 # link-checker
 
+[![Build Status](https://travis-ci.com/juev/link-checker.svg?branch=master)](https://travis-ci.com/juev/link-checker)
+
 Trying to write network application on C.
 
 Used this libraries: curl
