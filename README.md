@@ -16,3 +16,9 @@ For compiling you need to install libraries (on MacOS):
 - [ ] Get all links from webpage
 - [ ] Convert all internal links to full URLs
 - [ ] Check all weblinks on existing
+
+### Validate URL
+
+Regexp:
+
+    ^(?:http(s)?:\/\/)+[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+$
