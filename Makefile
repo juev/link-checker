@@ -15,11 +15,11 @@ clean:
 
 compile:
 	@mkdir -p bin
-	gcc ${DEBUG} ${FLAGS} ${LIBS} ${SOURCES} -o bin/link-checker
+	gcc ${DEBUG} ${FLAGS} ${SOURCES} -o bin/link-checker ${LIBS}
 
 release: clean
 	@mkdir -p bin
-	gcc ${FLAGS} ${LIBS} ${SOURCES} -o bin/link-checker
+	gcc ${FLAGS} ${SOURCES} -o bin/link-checker ${LIBS}
 
 # vim:ft=make
 #
