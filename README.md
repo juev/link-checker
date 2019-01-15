@@ -22,3 +22,7 @@ For compiling you need to install libraries (on MacOS):
 Regexp:
 
     ^(?:http(s)?:\/\/)+[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+$
+
+### Find all links
+
+    href\\s*=\\s*(?:[\"'](?<1>[^\"']*)[\"']|(?<1>\\S+))
