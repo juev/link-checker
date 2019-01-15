@@ -5,18 +5,21 @@
  * Distributed under terms of the MIT license.
  */
 
-#include "cmd.h"
-#include "curl.h"
 #include <stdio.h>
 #include <stdlib.h>
-
-typedef char *string;
+#include "cmd.h"
+#include "curl.h"
+#include "validate.h"
 
 int main(int argc, char **argv) {
-  string url = process_argc(argc, argv);
+  char *url = process_argc(argc, argv);
   printf("URL = %s\n", url);
 
-  string page = get_webpage(url);
-  printf("%s\n", page);
+  bool res = isUrl(url);
+  printf("%s is URL: %i\n", url, res);
+  if (res) {
+    char *page = get_webpage(url);
+    printf("%s\n", page);
+  }
   exit(0);
 }

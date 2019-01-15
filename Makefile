@@ -4,7 +4,7 @@
 #
 
 SOURCES = source/*.c
-LIBS = -lcurl
+LIBS = -lcurl -lpcre
 DEBUG = -Wall -ggdb3
 FLAGS = -std=c99
 
