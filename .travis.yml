@@ -1,7 +1,10 @@
 language: c
+
 before_install:
 - sudo apt-get install -y libcurl3 libpcre3 libpcre3-dev
+
 script: make release
+
 deploy:
   provider: releases
   api_key:
@@ -10,3 +13,7 @@ deploy:
   skip_cleanup: true
   on:
     repo: juev/link-checker
+
+branches:
+  only:
+  - master
