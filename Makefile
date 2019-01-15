@@ -8,22 +8,20 @@ LIBS = -lcurl -lpcre
 DEBUG = -Wall -ggdb3
 FLAGS = -std=c99 -O3
 
-all: clean compile
-
-dir:
-	@mkdir -p bin
+all: compile
 
 clean:
 	@rm -rf bin/*
+	@mkdir -p bin
 
-compile: dir
+compile: clean
 	gcc ${DEBUG} ${FLAGS} ${SOURCES} -o bin/link-checker ${LIBS}
 
-release: clean dir
+release: clean
 	gcc ${FLAGS} ${SOURCES} -o bin/link-checker ${LIBS}
 
-linux: clean dir
-	gcc ${FLAGS} ${SOURCES} -o bin/link-checker -static ${LIBS}
+linux: clean
+	gcc ${FLAGS} ${SOURCES} -o bin/link-checker ${LIBS}
 
 # vim:ft=make
 #
