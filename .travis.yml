@@ -5,13 +5,6 @@ before_install:
 
 script: make linux
 
-before_deploy:
-  # Set up git user name and tag this commit
-  - git config --local user.name "Denis Evsyukov"
-  - git config --local user.email "denis@evsyukov.org"
-  # - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
-  - git tag -f v1.0
-
 deploy:
   provider: releases
   api_key:
