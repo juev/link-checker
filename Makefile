@@ -6,7 +6,7 @@
 SOURCES = source/*.c
 LIBS = -lcurl -lpcre
 DEBUG = -Wall -ggdb3
-FLAGS = -std=c99
+FLAGS = -std=c99 -O3
 
 all: clean compile
 
