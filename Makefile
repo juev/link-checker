@@ -23,7 +23,7 @@ release: clean dir
 	gcc ${FLAGS} ${SOURCES} -o bin/link-checker ${LIBS}
 
 linux: clean dir
-	gcc ${FLAGS} -static ${SOURCES} -o bin/link-checker ${LIBS}
+	gcc ${FLAGS} ${SOURCES} -o bin/link-checker -static ${LIBS}
 
 # vim:ft=make
 #
