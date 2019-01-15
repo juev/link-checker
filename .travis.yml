@@ -6,6 +6,6 @@ deploy:
   provider: releases
   api_key:
     secure: QdNlZvcLDc0CO7blbeXFT1k1iXY47E41bdz8nF367m5Z1bg/t2nraUdAWtylhBpH9G6dVN0LLkXcVuOegY9QyHcsFQcCbAh/Nd9PpJbwArxDR0LDWZp3ePS8zod2ydohMphfD+Y0XiLZGD0bOXPAJ+EK+hDRRJXeNR0znlF9QlfkKIr6OTsWwVsu1U4Q+xd/DVBGOuU+cEDw/xovqsnMYjXtEyhXBPuGeKTp91cJKPH0E1nut8cVC2MIOPZ9Mh6Uk3Paa3ACNK89CjIdFvhs2iRnZuGPr0AGPaIxquQywb0JlcKdEFjhGCKiCFiQjXS4qIjofl1pEjfAKfVaDfUq1mX3LUrbBClW8NM3B2kQbtAJuClxNpETrdXmLDYHKodCzMYepwqhrcV/R3+TM2CbV2TexnzU4dvHdDW6OUXpRQpZvbvfDYKn0A2YJntGMa/OFr5HbxgZPGfk5/9iCZPGbRhz3+3QjQxsWllielesbJXFN1lHLtMkAtDHPBhYCRj/1JVxwMH4jlg1JoFuXnO+swMatR2JdHf/TGB1ZNkb6o4NfvL7AjkOtCINFpgH5g8OblIh9pbftVh+yzkzh773TtFJWMX+VX85G6+Rip4Ce1zS1JUvIKl+HCLfCgVkYhE+BUD1nOCtX2+QwXaR8GUkbuUOSGMgE+qngQQxVWoZqm4=
-  file: bin/link-checker
+  file: "bin/link-checker"
   on:
     repo: juev/link-checker
