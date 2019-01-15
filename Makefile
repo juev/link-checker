@@ -10,16 +10,20 @@ FLAGS = -std=c99 -O3
 
 all: clean compile
 
+dir:
+	@mkdir -p bin
+
 clean:
 	@rm -rf bin/*
 
-compile:
-	@mkdir -p bin
+compile: dir
 	gcc ${DEBUG} ${FLAGS} ${SOURCES} -o bin/link-checker ${LIBS}
 
-release: clean
-	@mkdir -p bin
+release: clean dir
 	gcc ${FLAGS} ${SOURCES} -o bin/link-checker ${LIBS}
+
+linux: clean dir
+	gcc ${FLAGS} -static ${SOURCES} -o bin/link-checker ${LIBS}
 
 # vim:ft=make
 #
