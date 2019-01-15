@@ -10,7 +10,7 @@ before_deploy:
   - git config --local user.name "Denis Evsyukov"
   - git config --local user.email "denis@evsyukov.org"
   # - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
-  - git tag v1.0
+  - git tag -fa v1.0
 
 deploy:
   provider: releases
