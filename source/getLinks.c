@@ -13,7 +13,7 @@
 
 #define OVECCOUNT 300 /* should be a multiple of 3 */
 
-int *getLinks(char *page) {
+char **getLinks(char *page) {
   pcre *re;
   const char *error;
   char *pattern = "href\\s*=\\s*(?:[\"'](?<1>[^\"']*)[\"']|(?<1>\\S+))";
@@ -48,7 +48,7 @@ int *getLinks(char *page) {
   if (rc < 0) {
     switch (rc) {
       case PCRE_ERROR_NOMATCH:
-        return ovector;
+        return 0;
         break;
       /*
       Handle other special cases if you like
@@ -61,6 +61,14 @@ int *getLinks(char *page) {
     exit(1);
   }
 
+  static char *result[9999];
+
+  for (int i = 0; i < rc; i++) {
+    char *substring_start = page + ovector[2 * i];
+    int substring_length = ovector[2 * i + 1] - ovector[2 * i];
+    printf("%2d: %.*s\n", i, substring_length, substring_start);
+    result[i] = substring_start;
+  }
   /* Match succeded */
-  return ovector;
+  return result;
 }

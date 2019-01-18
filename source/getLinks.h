@@ -8,6 +8,6 @@
 #ifndef GETLINKS_H
 #define GETLINKS_H
 
-int *getLinks(char *url);
+char **getLinks(char *url);
 
 #endif /* !GETLINKS_H */
