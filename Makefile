@@ -4,7 +4,7 @@
 #
 
 SOURCES = source/*.cc
-LIBS = -lcurl -lpcre
+LIBS = -lcurl
 DEBUG = -Wall -ggdb3
 FLAGS = -std=gnu++17 -O3
 
