@@ -21,10 +21,11 @@ int main(int argc, char **argv) {
     usage();
   }
   for (int i = 1; i < argc; i++) {
-    if (strcmp(argv[i], "--help") == 0 || strcmp(argv[i], "--usage") == 0) {
+    if (((string)argv[i]).compare("--help") == 0 ||
+        ((string)argv[i]).compare("--usage") == 0) {
       usage();
     }
-    if (strcmp(argv[i], "--version") == 0) {
+    if (((string)argv[i]).compare("--version") == 0) {
       puts("Link checker version 1.0");
       exit(0);
     }
