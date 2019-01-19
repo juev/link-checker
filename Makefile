@@ -3,10 +3,10 @@
 # Denis Evsyukov, 2019-01-12 11:25
 #
 
-SOURCES = source/*.c
+SOURCES = source/*.cc
 LIBS = -lcurl -lpcre
 DEBUG = -Wall -ggdb3
-FLAGS = -std=c99 -O3
+FLAGS = -std=gnu++17 -O3
 
 all: compile
 
@@ -15,13 +15,13 @@ clean:
 	@mkdir -p bin
 
 compile: clean
-	gcc ${DEBUG} ${FLAGS} ${SOURCES} -o bin/link-checker ${LIBS}
+	g++ ${DEBUG} ${FLAGS} ${SOURCES} -o bin/link-checker ${LIBS}
 
 release: clean
-	gcc ${FLAGS} ${SOURCES} -o bin/link-checker ${LIBS}
+	g++ ${FLAGS} ${SOURCES} -o bin/link-checker ${LIBS}
 
 linux: clean
-	gcc ${FLAGS} ${SOURCES} -o bin/link-checker ${LIBS}
+	g++ ${FLAGS} ${SOURCES} -o bin/link-checker ${LIBS}
 
 # vim:ft=make
 #
