@@ -15,13 +15,13 @@ clean:
 	@mkdir -p bin
 
 compile: clean
-	g++ ${DEBUG} ${FLAGS} ${SOURCES} -o bin/link-checker ${LIBS}
+	${CXX} ${DEBUG} ${FLAGS} ${SOURCES} -o bin/link-checker ${LIBS}
 
 release: clean
-	g++ ${FLAGS} ${SOURCES} -o bin/link-checker ${LIBS}
+	${CXX} ${FLAGS} ${SOURCES} -o bin/link-checker ${LIBS}
 
 linux: clean
-	g++ ${FLAGS} ${SOURCES} -o bin/link-checker ${LIBS}
+	${CXX} ${FLAGS} ${SOURCES} -o bin/link-checker ${LIBS}
 
 # vim:ft=make
 #
