@@ -13,7 +13,7 @@ For compiling you need to install libraries (on MacOS):
 ## TODO
 
 - [X] Check input for URL format
-- [ ] Get all links from webpage
+- [X] Get all links from webpage
 - [ ] Convert all internal links to full URLs
 - [ ] Check all weblinks on existing
 
