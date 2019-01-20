@@ -45,3 +45,6 @@ Internal links can relative and absolute:
     ../../style.css
 
 All internal links should be converted to external.
+
+For information:
+http://www.faqs.org/rfcs/rfc1808.html
