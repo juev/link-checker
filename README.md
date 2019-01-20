@@ -48,3 +48,15 @@ All internal links should be converted to external.
 
 For information:
 http://www.faqs.org/rfcs/rfc1808.html
+
+**libcurl** can handle relative url with `curl_url_set`:
+
+> curl_url_set() can also update the full URL, which also accepts a relative URL in case an existing one was already set. It will then apply the relative URL onto the former one and “transition” to the new absolute URL. Like this:
+
+    /* first an absolute URL */
+    curl_url_set(h, CURLUPART_URL,
+        "https://example.org:88/path/html", 0);
+   
+    /* .. then we set a relative URL "on top" */
+    curl_url_set(h, CURLUPART_URL,
+        "../new/place", 0); 
