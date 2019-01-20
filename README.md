@@ -14,8 +14,9 @@ For compiling you need to install libraries (on MacOS):
 
 - [X] Check input for URL format
 - [X] Get all links from webpage
-- [ ] Convert all internal links to full URLs
-- [ ] Check all weblinks on existing
+- [X] Convert all internal links to full URLs
+- [X] Check all weblinks on existing
+- [ ] Format output
 
 ### Validate URL
 

@@ -32,7 +32,10 @@ int main(int argc, char **argv) {
   }
   string url = argv[1];
   if (checkUrl(url)) {
-    for (const string &hlink : extract_hyperlinks(getPage(url))) cout << hlink << '\n';
+    for (const string &hlink : extract_hyperlinks(getPage(url))) {
+        cout << hlink << ' ';
+        cout << getResutlCode(url, hlink) << endl;
+    }
   } else {
     usage();
   }

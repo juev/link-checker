@@ -20,5 +20,6 @@ using namespace std;
 string getPage(string url);
 bool checkUrl(string url);
 set<string> extract_hyperlinks(string html);
+long getResutlCode(string originUrl, string url);
 
 #endif /* !HEADER_H */
