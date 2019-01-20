@@ -61,3 +61,4 @@ http://www.faqs.org/rfcs/rfc1808.html
     /* .. then we set a relative URL "on top" */
     curl_url_set(h, CURLUPART_URL,
         "../new/place", 0); 
+        g
