@@ -19,7 +19,8 @@ deploy:
   draft: true
   on:
     repo: juev/link-checker
-
+    tags: true
+    
 branches:
   only:
   - master
