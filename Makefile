@@ -8,7 +8,7 @@ LIBS = -lcurl
 DEBUG = -Wall -ggdb3
 FLAGS = -std=gnu++17 -O3
 
-all: compile
+all: linux
 
 clean:
 	@rm -rf bin/*

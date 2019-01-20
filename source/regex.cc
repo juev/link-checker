@@ -7,22 +7,17 @@
 
 #include "header.h"
 
-bool checkUrl(string url) {
+bool checkUrl(const string url) {
   regex rgx(
       "^(?:http(s)?:\\/\\/)[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:\\/"
-      "?#[\\]@!\\$&'\(\\)\\*\\+,;=.]+$");
+      "?#[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$");
   smatch match;
 
-  const string uri = url;
-  if (std::regex_search(uri.begin(), uri.end(), match, rgx)) {
-    return true;
-  } else {
-    return false;
-  }
+  return std::regex_search(url, rgx);
 }
 
 set<string> extract_hyperlinks(string html) {
-  static const std::regex hl_regex("href=[\'\"]?([^\\'\" >]+)",
+  static const std::regex hl_regex(R"(href=['"]?([^\'" >]+))",
                                    std::regex_constants::icase);
 
   return {std::sregex_token_iterator(html.begin(), html.end(), hl_regex, 1),

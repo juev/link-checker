@@ -21,19 +21,18 @@ int main(int argc, char **argv) {
     usage();
   }
   for (int i = 1; i < argc; i++) {
-    if (((string)argv[i]).compare("--help") == 0 ||
-        ((string)argv[i]).compare("--usage") == 0) {
+    if (((string) argv[i]) == "--help" ||
+            ((string)argv[i]) == "--usage") {
       usage();
     }
-    if (((string)argv[i]).compare("--version") == 0) {
+    if ((string)argv[i] == "--version") {
       puts("Link checker version 1.0");
       exit(0);
     }
   }
   string url = argv[1];
   if (checkUrl(url)) {
-    /* cout << getPage(url) << endl; */
-    for (string hlink : extract_hyperlinks(getPage(url))) cout << hlink << '\n';
+    for (const string &hlink : extract_hyperlinks(getPage(url))) cout << hlink << '\n';
   } else {
     usage();
   }
