@@ -26,3 +26,22 @@ Regexp:
 ### Find all links
 
     href\\s*=\\s*(?:[\"'](?<1>[^\"']*)[\"']|(?<1>\\S+))
+
+### Type of links
+
+All links ca be separated to internal and external.
+
+External links:
+
+    https://travis-ci.com/juev/link-checker.svg
+    http://www.juev.org/
+    //yandex.ru
+
+All these links can be started with `http(s)` or `//`.
+
+Internal links can relative and absolute:
+
+    /index.html
+    ../../style.css
+
+All internal links should be converted to external.
