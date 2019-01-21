@@ -6,7 +6,7 @@
  */
 
 #include "header.h"
-#include "../termcolor/termcolor.hpp"
+#include "termcolor/termcolor.hpp"
 
 void usage() {
   cout << "Usage: link-checker [OPTION...] URL\n"
