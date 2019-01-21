@@ -19,7 +19,3 @@ deploy:
   on:
     repo: juev/link-checker
     tags: true
-
-branches:
-  only:
-  - master
