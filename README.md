@@ -14,9 +14,9 @@ For compiling you need to install libraries (on MacOS):
 
 - [X] Check input for URL format
 - [X] Get all links from webpage
-- [X] Convert all internal links to full URLs
+- [ ] Convert all internal links to full URLs
 - [X] Check all weblinks on existing
-- [ ] Format output
+- [X] Format output
 
 ### Validate URL
 
@@ -57,8 +57,8 @@ http://www.faqs.org/rfcs/rfc1808.html
     /* first an absolute URL */
     curl_url_set(h, CURLUPART_URL,
         "https://example.org:88/path/html", 0);
-   
+
     /* .. then we set a relative URL "on top" */
     curl_url_set(h, CURLUPART_URL,
-        "../new/place", 0); 
+        "../new/place", 0);
         g
