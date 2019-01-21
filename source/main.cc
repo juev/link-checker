@@ -21,8 +21,7 @@ int main(int argc, char **argv) {
     usage();
   }
   for (int i = 1; i < argc; i++) {
-    if (((string) argv[i]) == "--help" ||
-            ((string)argv[i]) == "--usage") {
+    if (((string)argv[i]) == "--help" || ((string)argv[i]) == "--usage") {
       usage();
     }
     if ((string)argv[i] == "--version") {
@@ -33,8 +32,9 @@ int main(int argc, char **argv) {
   string url = argv[1];
   if (checkUrl(url)) {
     for (const string &hlink : extract_hyperlinks(getPage(url))) {
-        cout << hlink << ' ';
-        cout << getResutlCode(url, hlink) << endl;
+      cout << left;
+      cout << "*  " << setw(120) << hlink << setw(5) << ' ';
+      cout << getResutlCode(url, hlink) << endl;
     }
   } else {
     usage();

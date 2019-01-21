@@ -9,6 +9,7 @@
 #define HEADER_H
 
 #include <curl/curl.h>
+#include <iomanip>
 #include <iostream>
 #include <iterator>
 #include <regex>
