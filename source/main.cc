@@ -6,6 +6,7 @@
  */
 
 #include "header.h"
+#include "../termcolor/termcolor.hpp"
 
 void usage() {
   cout << "Usage: link-checker [OPTION...] URL\n"
@@ -34,7 +35,12 @@ int main(int argc, char **argv) {
     for (const string &hlink : extract_hyperlinks(getPage(url))) {
       cout << left;
       cout << "*  " << setw(120) << hlink << setw(5) << ' ';
-      cout << getResutlCode(url, hlink) << endl;
+      long res = getResutlCode(url, hlink);
+      if (res == 200) {
+        cout << termcolor::green << res << termcolor::reset << endl;
+      } else {
+        cout << termcolor::red << res << termcolor::reset << endl;
+      }
     }
   } else {
     usage();
