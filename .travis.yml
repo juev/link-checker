@@ -17,5 +17,4 @@ deploy:
   file: bin/link-checker
   skip_cleanup: true
   on:
-    repo: juev/link-checker
     tags: true
