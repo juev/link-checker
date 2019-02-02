@@ -24,9 +24,17 @@ set<string> extract_hyperlinks(string html) {
           std::sregex_token_iterator{}};
 }
 
-link parse_link(const string url) {
-  link result;
-  static const std::regex hl_regex(R"((.*):\/\/(.*)\/)",
+urlDef parse_link(const string url) {
+  urlDef result;
+  static const std::regex hl_regex(R"((?:(.*):\/\/)*([^\/\:]*)\/(.*))",
                                    std::regex_constants::icase);
+  std::smatch matches;
+  if (std::regex_search(url, matches, hl_regex)) {
+    result.scheme = matches[1];
+    result.domain = matches[2];
+    result.path = matches[3];
+  } else {
+    std::cout << "Match not found\n";
+  }
   return result;
 }

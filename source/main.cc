@@ -32,6 +32,9 @@ int main(int argc, char **argv) {
   }
   string url = argv[1];
   if (checkUrl(url)) {
+    urlDef l = parse_link(url);
+    cout << "Scheme: " << l.scheme << "\nDomain: " << l.domain
+         << "\nPath: " << l.path << endl;
     for (const string &hlink : extract_hyperlinks(getPage(url))) {
       cout << left;
       cout << "*  " << setw(120) << hlink << setw(5) << ' ';
