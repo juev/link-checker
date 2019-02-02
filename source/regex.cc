@@ -23,3 +23,10 @@ set<string> extract_hyperlinks(string html) {
   return {std::sregex_token_iterator(html.begin(), html.end(), hl_regex, 1),
           std::sregex_token_iterator{}};
 }
+
+Link parse_link(const string url) {
+  Link result;
+  static const std::regex hl_regex(R"((.*):\/\/(.*)\/)",
+                                   std::regex_constants::icase);
+  return result;
+}
