@@ -2,9 +2,9 @@
 
 [![Build Status](https://travis-ci.com/juev/link-checker.svg?branch=master)](https://travis-ci.com/juev/link-checker)
 
-Trying to write network application on C.
+Trying to write network application on C++
 
-Used this libraries: curl
+Using libraries: curl
 
 For compiling you need to install libraries (on MacOS):
 
@@ -14,9 +14,9 @@ For compiling you need to install libraries (on MacOS):
 
 - [X] Check input for URL format
 - [X] Get all links from webpage
-- [ ] Convert all internal links to full URLs
 - [X] Check all weblinks on existing
 - [X] Format output
+- [ ] Convert all internal links to full URLs
 
 ### Validate URL
 
@@ -40,25 +40,18 @@ External links:
 
 All these links can be started with `http(s)` or `//`.
 
-Internal links can relative and absolute:
+Internal links can be relative and absolute:
 
     /index.html
     ../../style.css
 
-All internal links should be converted to external.
+All internal links should be converted to external:
+
+1) Get protocol and domain name from URL
+1) Absolute link:
+    * protocol + domain + url
+1) Relative link:
+    * START_URL + url
 
 For information:
 http://www.faqs.org/rfcs/rfc1808.html
-
-**libcurl** can handle relative url with `curl_url_set`:
-
-> curl_url_set() can also update the full URL, which also accepts a relative URL in case an existing one was already set. It will then apply the relative URL onto the former one and “transition” to the new absolute URL. Like this:
-
-    /* first an absolute URL */
-    curl_url_set(h, CURLUPART_URL,
-        "https://example.org:88/path/html", 0);
-
-    /* .. then we set a relative URL "on top" */
-    curl_url_set(h, CURLUPART_URL,
-        "../new/place", 0);
-        g
