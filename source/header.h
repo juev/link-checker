@@ -18,6 +18,12 @@
 
 using namespace std;
 
+struct link {
+  string scheme;
+  string domain;
+  string path;
+};
+
 string getPage(string url);
 bool checkUrl(string url);
 set<string> extract_hyperlinks(string html);

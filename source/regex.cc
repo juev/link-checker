@@ -24,8 +24,8 @@ set<string> extract_hyperlinks(string html) {
           std::sregex_token_iterator{}};
 }
 
-Link parse_link(const string url) {
-  Link result;
+link parse_link(const string url) {
+  link result;
   static const std::regex hl_regex(R"((.*):\/\/(.*)\/)",
                                    std::regex_constants::icase);
   return result;
