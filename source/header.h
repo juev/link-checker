@@ -18,16 +18,17 @@
 
 using namespace std;
 
-typedef struct urlDef {
+struct URL {
+  string fullUrl;
   string scheme;
   string domain;
   string path;
-} urlDef;
+};
 
 string getPage(string url);
 bool checkUrl(string url);
 set<string> extract_hyperlinks(string html);
 long getResutlCode(string originUrl, string url);
-urlDef parse_link(const string url);
+URL parse_link(const string link);
 
 #endif /* !HEADER_H */

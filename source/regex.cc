@@ -7,13 +7,13 @@
 
 #include "header.h"
 
-bool checkUrl(const string url) {
+bool checkUrl(const string link) {
   regex rgx(
       "^(?:http(s)?:\\/\\/)[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:\\/"
       "?#[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$");
   smatch match;
 
-  return std::regex_search(url, rgx);
+  return std::regex_search(link, rgx);
 }
 
 set<string> extract_hyperlinks(string html) {
@@ -24,17 +24,32 @@ set<string> extract_hyperlinks(string html) {
           std::sregex_token_iterator{}};
 }
 
-urlDef parse_link(const string url) {
-  urlDef result;
-  static const std::regex hl_regex(R"((?:(.*):\/\/)*([^\/\:]*)\/(.*))",
-                                   std::regex_constants::icase);
-  std::smatch matches;
-  if (std::regex_search(url, matches, hl_regex)) {
-    result.scheme = matches[1];
-    result.domain = matches[2];
-    result.path = matches[3];
+URL parse_link(const string link) {
+  URL result;
+  static const std::regex scheme_regex(R"((.*):\/\/(?:.*))",
+                                       std::regex_constants::icase);
+  std::cmatch m;
+  char l[link.size() + 1];
+  strcpy(l, link.c_str());
+  if (std::regex_match(l, m, scheme_regex)) {
+    result.scheme = m[1];
   } else {
-    std::cout << "Match not found\n";
+    cout << "Scheme not found, using default https" << endl;
+    result.scheme = "https";
+  }
+  static const std::regex domain_regex(
+      R"((?:.*):\/\/([^\/:]*)(?:\/){0,1}(?:.*))", std::regex_constants::icase);
+  if (std::regex_match(l, m, domain_regex)) {
+    result.domain = m[1];
+  } else {
+    cout << "Domain not found" << endl;
+  }
+  static const std::regex path_regex(R"((?:.*):\/\/(?:[^\/]*)(?:\/){0,1}(.*))",
+                                     std::regex_constants::icase);
+  if (std::regex_match(l, m, path_regex)) {
+    result.path = m[1];
+  } else {
+    cout << "Path not found" << endl;
   }
   return result;
 }
