@@ -31,11 +31,9 @@ int main(int argc, char **argv) {
     }
   }
   string url = argv[1];
-  if (checkUrl(url)) {
-    URL l = parse_link(url.c_str());
-    cout << "Scheme: " << l.scheme << "\nDomain: " << l.domain
-         << "\nPath: " << l.path << endl;
-    for (const string &hlink : extract_hyperlinks(getPage(url))) {
+  URL l = URL(url.c_str());
+  if (l.isValid) {
+    for (const string &hlink : l.links) {
       cout << left;
       cout << "*  " << setw(120) << hlink << setw(5) << ' ';
       long res = getResutlCode(url, hlink);
