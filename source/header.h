@@ -23,10 +23,9 @@ long getResutlCode(string originUrl, string url);
 
 class URL {
  public:
-  bool isValid = false;
-  set<string> links;
-
+  string fullUrl;
   URL(const string link) {
+    // init scheme, domain and path variables
     static const std::regex scheme_regex(R"((.*):\/\/(?:.*))",
                                          std::regex_constants::icase);
     std::cmatch m;
@@ -53,22 +52,29 @@ class URL {
     } else {
       cout << "Path not found" << endl;
     }
-    regex rgx(
-        "^(?:http(s)?:\\/\\/)[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:\\/"
-        "?#[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$");
-    smatch match;
 
-    isValid = std::regex_search(link, rgx);
+    // change links to full link
+    fullUrl = scheme + "://" + domain + "/" + path;
+  }
+
+  // extract links from page
+  set<string> extract() {
     static const std::regex hl_regex(R"(href=['"]?([^\'" >]+))",
                                      std::regex_constants::icase);
 
-    string html = getPage(link);
-    links = {std::sregex_token_iterator(html.begin(), html.end(), hl_regex, 1),
-             std::sregex_token_iterator{}};
+    string html = getPage(fullUrl);
+    set<string> temp = {
+        std::sregex_token_iterator(html.begin(), html.end(), hl_regex, 1),
+        std::sregex_token_iterator{}};
+    set<string> result = {};
+    // TODO: add handler for internal links
+    for (auto el : temp) {
+      result.insert(URL(el).fullUrl);
+    }
+    return (result);
   }
 
  private:
-  string fullUrl;
   string scheme;
   string domain;
   string path;
