@@ -17,20 +17,21 @@ void usage() {
   exit(0);
 }
 
-int wmain(int argc, wchar_t **argv) {
+int main(int argc, char **argv) {
   if (argc < 2) {
     usage();
   }
   for (int i = 1; i < argc; i++) {
-    if (((wstring)argv[i]) == L"--help" || ((wstring)argv[i]) == L"--usage") {
+    if (((string)argv[i]) == "--help" || ((string)argv[i]) == "--usage") {
       usage();
     }
-    if ((wstring)argv[i] == L"--version") {
+    if ((string)argv[i] == "--version") {
       puts("Link checker version 1.0");
       exit(0);
     }
   }
-  wstring url = (wstring)argv[1];
+  string urlt = (string)argv[1];
+  wstring url(urlt.begin(), urlt.end());
   URL l = URL(url);
   /* for (const string &hlink : l.extract()) { */
   /*   cout << left; */
