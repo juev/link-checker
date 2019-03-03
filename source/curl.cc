@@ -17,7 +17,7 @@ static size_t write_data(void *buffer, size_t size, size_t nmemb, void *userp) {
   return size * nmemb;
 }
 
-string getPage(string url) {
+wstring getPage(wstring url) {
   CURL *curl;
   string readBuffer;
   char errbuf[CURL_ERROR_SIZE];
@@ -46,7 +46,8 @@ string getPage(string url) {
     }
     curl_easy_cleanup(curl);
   }
-  return readBuffer;
+  wstring result(readBuffer.begin(), readBuffer.end());
+  return result;
 }
 
 long getResutlCode(string originUrl, string url) {

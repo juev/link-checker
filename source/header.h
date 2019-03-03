@@ -16,68 +16,98 @@
 #include <set>
 #include <string>
 
+#include <algorithm>
+#include <cctype>
+#include <functional>
+
+#include <wchar.h>
+
 using namespace std;
 
-string getPage(string url);
+wstring getPage(wstring url);
 long getResutlCode(string originUrl, string url);
 
 class URL {
  public:
-  string fullUrl;
-  URL(const string link) {
-    // init scheme, domain and path variables
-    static const std::regex scheme_regex(R"((.*):\/\/(?:.*))",
-                                         std::regex_constants::icase);
-    std::cmatch m;
-    char l[link.size() + 1];
-    strcpy(l, link.c_str());
-    if (std::regex_match(l, m, scheme_regex)) {
-      scheme = m[1];
-    } else {
-      cout << "Scheme not found, using default https" << endl;
-      scheme = "https";
-    }
-    static const std::regex domain_regex(
-        R"((?:.*):\/\/([^\/:]*)(?:\/){0,1}(?:.*))",
-        std::regex_constants::icase);
-    if (std::regex_match(l, m, domain_regex)) {
-      domain = m[1];
-    } else {
-      cout << "Domain not found" << endl;
-    }
-    static const std::regex path_regex(
-        R"((?:.*):\/\/(?:[^\/]*)(?:\/){0,1}(.*))", std::regex_constants::icase);
-    if (std::regex_match(l, m, path_regex)) {
-      path = m[1];
-    } else {
-      cout << "Path not found" << endl;
+  wstring fullUrl;
+  wstring scheme;
+  wstring domain;
+  wstring port;
+  wstring path;
+  wstring query;
+
+  URL(const wstring link) {
+    cout << "link: " << &link << endl;
+    typedef std::wstring::const_iterator iterator_t;
+
+    iterator_t linkEnd = link.end();
+    // get query start
+    iterator_t queryStart = std::find(link.begin(), linkEnd, L'?');
+    // protocol
+    iterator_t protocolStart = link.begin();
+    iterator_t protocolEnd = std::find(protocolStart, linkEnd, L':');  //"://");
+    if (protocolEnd != linkEnd) {
+      std::wstring prot = &*(protocolEnd);
+      if ((prot.length() > 3) && (prot.substr(0, 3) == L"://")) {
+        scheme = std::wstring(protocolStart, protocolEnd);
+        protocolEnd += 3;  //      ://
+      } else
+        protocolEnd = link.begin();  // no protocol
+    } else
+      protocolEnd = link.begin();  // no protocol
+
+    // host
+    iterator_t hostStart = protocolEnd;
+    iterator_t pathStart =
+        std::find(hostStart, linkEnd, L'/');  // get pathStart
+
+    iterator_t hostEnd =
+        std::find(protocolEnd, (pathStart != linkEnd) ? pathStart : queryStart,
+                  L':');  // check for port
+
+    domain = std::wstring(hostStart, hostEnd);
+
+    // port
+    if ((hostEnd != linkEnd) && ((&*(hostEnd))[0] == L':'))  // we have a port
+    {
+      hostEnd++;
+      iterator_t portEnd = (pathStart != linkEnd) ? pathStart : queryStart;
+      port = std::wstring(hostEnd, portEnd);
     }
 
+    // path
+    if (pathStart != linkEnd) path = std::wstring(pathStart, queryStart);
+
+    // query
+    if (queryStart != linkEnd) query = std::wstring(queryStart, link.end());
+
+    // init scheme, domain and path variables
     // change links to full link
-    fullUrl = scheme + "://" + domain + "/" + path;
+    fullUrl = scheme + domain + path;
+    wcout << "scheme: " << scheme << endl;
+    wcout << "domain: " << domain << endl;
+    wcout << "path: " << path << endl;
+
+    wcout << "fullUrl: " << fullUrl << endl;
   }
 
   // extract links from page
-  set<string> extract() {
-    static const std::regex hl_regex(R"(href=['"]?([^\'" >]+))",
-                                     std::regex_constants::icase);
+  /* set<wstring> extract() { */
+  /*   static const std::regex hl_regex(R"(href=['"]?([^\'" >]+))", */
+  /*                                    std::regex_constants::icase); */
 
-    string html = getPage(fullUrl);
-    set<string> temp = {
-        std::sregex_token_iterator(html.begin(), html.end(), hl_regex, 1),
-        std::sregex_token_iterator{}};
-    set<string> result = {};
-    // TODO: add handler for internal links
-    for (auto el : temp) {
-      result.insert(URL(el).fullUrl);
-    }
-    return (result);
-  }
-
- private:
-  string scheme;
-  string domain;
-  string path;
+  /*   wstring html = getPage(fullUrl); */
+  /*   set<wstring> temp = { */
+  /*       std::wsregex_token_iterator(html.begin(), html.end(), hl_regex, 1),
+   */
+  /*       std::wsregex_token_iterator{}}; */
+  /*   set<wstring> result = {}; */
+  /*   // TODO: add handler for internal links */
+  /*   for (auto el : temp) { */
+  /*     result.insert(URL(el).fullUrl); */
+  /*   } */
+  /*   return (result); */
+  /* } */
 };
 
 #endif /* !HEADER_H */
