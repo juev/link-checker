@@ -37,7 +37,7 @@ class URL {
   wstring query;
 
   URL(const wstring link) {
-    cout << "link: " << &link << endl;
+    wcout << L"link: " << link << endl;
     typedef std::wstring::const_iterator iterator_t;
 
     iterator_t linkEnd = link.end();
@@ -45,16 +45,17 @@ class URL {
     iterator_t queryStart = std::find(link.begin(), linkEnd, L'?');
     // protocol
     iterator_t protocolStart = link.begin();
-    iterator_t protocolEnd = std::find(protocolStart, linkEnd, L':');  //"://");
-    if (protocolEnd != linkEnd) {
-      std::wstring prot = &*(protocolEnd);
-      if ((prot.length() > 3) && (prot.substr(0, 3) == L"://")) {
-        scheme = std::wstring(protocolStart, protocolEnd);
-        protocolEnd += 3;  //      ://
-      } else
-        protocolEnd = link.begin();  // no protocol
+    iterator_t protocolEnd = std::find(link.begin(), linkEnd, L'//');
+    if (protocolEnd != linkEnd && protocolEnd != protocolStart) {
+      protocolEnd += 2;  //      ://
+      scheme = std::wstring(protocolStart, protocolEnd);
+    } else if (protocolEnd == protocolStart) {
+      protocolEnd +=2;
     } else
       protocolEnd = link.begin();  // no protocol
+
+    if (scheme == L"")
+      scheme = L"https://";
 
     // host
     iterator_t hostStart = protocolEnd;
