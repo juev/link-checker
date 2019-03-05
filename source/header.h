@@ -24,7 +24,7 @@
 
 using namespace std;
 
-wstring getPage(wstring url);
+string getPage(wstring url);
 long getResutlCode(string originUrl, string url);
 
 class URL {
@@ -36,10 +36,11 @@ class URL {
   wstring path;
   wstring query;
 
-  URL(const wstring link) {
-    wcout << L"link: " << link << endl;
+  URL(const string slink) {
+    cout << "link: " << slink << endl;
     typedef std::wstring::const_iterator iterator_t;
 
+    wstring link(slink.begin(), slink.end());
     iterator_t linkEnd = link.end();
     // get query start
     iterator_t queryStart = std::find(link.begin(), linkEnd, L'?');
@@ -50,12 +51,11 @@ class URL {
       protocolEnd += 2;  //      ://
       scheme = std::wstring(protocolStart, protocolEnd);
     } else if (protocolEnd == protocolStart) {
-      protocolEnd +=2;
+      protocolEnd += 2;
     } else
       protocolEnd = link.begin();  // no protocol
 
-    if (scheme == L"")
-      scheme = L"https://";
+    if (scheme == L"") scheme = L"https://";
 
     // host
     iterator_t hostStart = protocolEnd;
@@ -93,22 +93,21 @@ class URL {
   }
 
   // extract links from page
-  /* set<wstring> extract() { */
-  /*   static const std::regex hl_regex(R"(href=['"]?([^\'" >]+))", */
-  /*                                    std::regex_constants::icase); */
+  set<wstring> extract() {
+    static const std::regex hl_regex(R"(href=['"]?([^\'" >]+))",
+                                     std::regex_constants::icase);
 
-  /*   wstring html = getPage(fullUrl); */
-  /*   set<wstring> temp = { */
-  /*       std::wsregex_token_iterator(html.begin(), html.end(), hl_regex, 1),
-   */
-  /*       std::wsregex_token_iterator{}}; */
-  /*   set<wstring> result = {}; */
-  /*   // TODO: add handler for internal links */
-  /*   for (auto el : temp) { */
-  /*     result.insert(URL(el).fullUrl); */
-  /*   } */
-  /*   return (result); */
-  /* } */
+    string html = getPage(fullUrl);
+    set<string> temp = {
+        std::sregex_token_iterator(html.begin(), html.end(), hl_regex, 1),
+        std::sregex_token_iterator{}};
+    set<wstring> result = {};
+    // TODO: add handler for internal links */
+    for (auto el : temp) {
+      result.insert(URL(el).fullUrl);
+    }
+    return (result);
+  }
 };
 
 #endif /* !HEADER_H */

@@ -31,8 +31,8 @@ int main(int argc, char **argv) {
     }
   }
   string urlt = (string)argv[1];
-  wstring url(urlt.begin(), urlt.end());
-  URL l = URL(url);
+  /* wstring url(urlt.begin(), urlt.end()); */
+  URL l = URL(urlt);
   /* for (const string &hlink : l.extract()) { */
   /*   cout << left; */
   /*   cout << "*  " << setw(120) << hlink << setw(5) << ' '; */
