@@ -24,76 +24,93 @@
 
 using namespace std;
 
-string getPage(wstring url);
+string getPage(string url);
 long getResutlCode(string originUrl, string url);
 
 class URL {
  public:
-  wstring fullUrl;
-  wstring scheme;
-  wstring domain;
-  wstring port;
-  wstring path;
-  wstring query;
+  string fullUrl = "";
+  string scheme = "";
+  string domain = "";
+  string port = "";
+  string path = "";
+  string query = "";
 
-  URL(const string slink) {
-    cout << "link: " << slink << endl;
-    typedef std::wstring::const_iterator iterator_t;
+  URL(const string link) {
+    cout << "link: " << link << endl;
+    // typedef std::wstring::const_iterator iterator_t;
 
-    wstring link(slink.begin(), slink.end());
-    iterator_t linkEnd = link.end();
+    // wstring link(slink.begin(), slink.end());
+    // iterator_t linkEnd = link.end();
+    auto linkEnd = link.length();
+    cout << "linkEnd: " << linkEnd << endl;
     // get query start
-    iterator_t queryStart = std::find(link.begin(), linkEnd, L'?');
+    auto queryStart = link.find("?");
+    cout << "queryStart: " << static_cast<int>(queryStart) << endl;
+    // iterator_t queryStart = std::find(link.begin(), linkEnd, L'?');
     // protocol
-    iterator_t protocolStart = link.begin();
-    iterator_t protocolEnd = std::find(link.begin(), linkEnd, L'//');
+    // iterator_t protocolStart = link.begin();
+    auto protocolStart = 0;
+    // iterator_t protocolEnd = std::find(link.begin(), linkEnd, L'//');
+    auto protocolEnd = link.find("//");
+    cout << "protocolEnd: " << static_cast<int>(protocolEnd) << endl;
+
     if (protocolEnd != linkEnd && protocolEnd != protocolStart) {
       protocolEnd += 2;  //      ://
-      scheme = std::wstring(protocolStart, protocolEnd);
+      // scheme = std::wstring(protocolStart, protocolEnd);
+      scheme = link.substr(protocolStart, protocolEnd-protocolStart);
     } else if (protocolEnd == protocolStart) {
       protocolEnd += 2;
     } else
-      protocolEnd = link.begin();  // no protocol
-
-    if (scheme == L"") scheme = L"https://";
-
+      // protocolEnd = link.begin();  // no protocol
+      protocolEnd = 0;  // no protocol
+    cout << "protocolEnd: " << static_cast<int>(protocolEnd) << endl;
+    if (scheme == "") scheme = "https://";
+    cout << "scheme: " << scheme << endl;
     // host
-    iterator_t hostStart = protocolEnd;
-    iterator_t pathStart =
-        std::find(hostStart, linkEnd, L'/');  // get pathStart
+    // iterator_t hostStart = protocolEnd;
+    auto hostStart = protocolEnd;
+    cout << "hostStart: " << hostStart << endl;
+    // iterator_t pathStart =
+    //     std::find(hostStart, linkEnd, L'/');  // get pathStart
+    auto pathStart = link.find("/", hostStart);
+    cout << "pathStart: " << static_cast<int>(pathStart) << endl;
+    // iterator_t hostEnd =
+    //     std::find(protocolEnd, (pathStart != linkEnd) ? pathStart : queryStart,
+    //               L':');  // check for port
 
-    iterator_t hostEnd =
-        std::find(protocolEnd, (pathStart != linkEnd) ? pathStart : queryStart,
-                  L':');  // check for port
-
-    domain = std::wstring(hostStart, hostEnd);
-
-    // port
-    if ((hostEnd != linkEnd) && ((&*(hostEnd))[0] == L':'))  // we have a port
-    {
-      hostEnd++;
-      iterator_t portEnd = (pathStart != linkEnd) ? pathStart : queryStart;
-      port = std::wstring(hostEnd, portEnd);
-    }
-
+    auto hostEnd = link.find(":", protocolEnd);
+    if (static_cast<int>(hostEnd) == -1) hostEnd = pathStart;
+    cout << "hostEnd: " << static_cast<int>(hostEnd) << endl;
+    // domain = std::wstring(hostStart, hostEnd);
+    domain = link.substr(hostStart, hostEnd-hostStart);
+    cout << "domain: " << domain << endl;
     // path
-    if (pathStart != linkEnd) path = std::wstring(pathStart, queryStart);
-
+    // if (pathStart != linkEnd) path = std::wstring(pathStart, queryStart);
+    if (pathStart != linkEnd) {
+      if (queryStart != -1) {
+        path = link.substr(pathStart, queryStart-pathStart);
+      } else {
+        path = link.substr(pathStart, linkEnd-pathStart);
+      }
+    }
+    cout << "path: " << path << endl;
     // query
-    if (queryStart != linkEnd) query = std::wstring(queryStart, link.end());
-
+    // if (queryStart != linkEnd) query = std::wstring(queryStart, link.length());
+    if (queryStart!= -1 && queryStart != linkEnd) query = link.substr(queryStart, link.length()-queryStart);
+    cout << "query: " << query << endl;
     // init scheme, domain and path variables
     // change links to full link
     fullUrl = scheme + domain + path;
-    wcout << "scheme: " << scheme << endl;
-    wcout << "domain: " << domain << endl;
-    wcout << "path: " << path << endl;
+    // cout << "scheme: " << scheme << endl;
+    // cout << "domain: " << domain << endl;
+    // cout << "path: " << path << endl;
 
-    wcout << "fullUrl: " << fullUrl << endl;
+    cout << "fullUrl: " << fullUrl << endl;
   }
 
   // extract links from page
-  set<wstring> extract() {
+  set<string> extract() {
     static const std::regex hl_regex(R"(href=['"]?([^\'" >]+))",
                                      std::regex_constants::icase);
 
@@ -101,7 +118,7 @@ class URL {
     set<string> temp = {
         std::sregex_token_iterator(html.begin(), html.end(), hl_regex, 1),
         std::sregex_token_iterator{}};
-    set<wstring> result = {};
+    set<string> result = {};
     // TODO: add handler for internal links */
     for (auto el : temp) {
       result.insert(URL(el).fullUrl);
