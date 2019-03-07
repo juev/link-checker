@@ -30,17 +30,18 @@ int main(int argc, char **argv) {
       exit(0);
     }
   }
-  string url = argv[1];
-  URL l = URL(url.c_str());
-  for (const string &hlink : l.extract()) {
-    cout << left;
-    cout << "*  " << setw(120) << hlink << setw(5) << ' ';
-    long res = getResutlCode(url, hlink);
-    if (res == 200) {
-      cout << termcolor::green << res << termcolor::reset << endl;
-    } else {
-      cout << termcolor::red << res << termcolor::reset << endl;
-    }
-  }
+  // string urlt = (string)argv[1];
+  /* wstring url(urlt.begin(), urlt.end()); */
+  URL l = URL(argv[1]);
+  /* for (const string &hlink : l.extract()) { */
+  /*   cout << left; */
+  /*   cout << "*  " << setw(120) << hlink << setw(5) << ' '; */
+  /*   long res = getResutlCode(url, hlink); */
+  /*   if (res == 200) { */
+  /*     cout << termcolor::green << res << termcolor::reset << endl; */
+  /*   } else { */
+  /*     cout << termcolor::red << res << termcolor::reset << endl; */
+  /*   } */
+  /* } */
   return 0;
 }

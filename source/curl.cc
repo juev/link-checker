@@ -46,6 +46,7 @@ string getPage(string url) {
     }
     curl_easy_cleanup(curl);
   }
+  // string result(readBuffer.begin(), readBuffer.end());
   return readBuffer;
 }
 
