@@ -2,56 +2,23 @@
 
 [![Build Status](https://travis-ci.com/juev/link-checker.svg?branch=master)](https://travis-ci.com/juev/link-checker)
 
-Trying to write network application on C++
-
 Using libraries: curl
 
 For compiling you need to install libraries (on MacOS):
 
     % brew install curl
 
-## TODO
+### Example:
 
-- [X] Check input for URL format
-- [X] Get all links from webpage
-- [X] Check all weblinks on existing
-- [X] Format output
-- [ ] Convert all internal links to full URLs
-
-### Validate URL
-
-Regexp:
-
-    ^(?:http(s)?:\/\/)+[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@!\$&'\(\)\*\+,;=.]+$
-
-### Find all links
-
-    href\\s*=\\s*(?:[\"'](?<1>[^\"']*)[\"']|(?<1>\\S+))
-
-### Type of links
-
-All links ca be separated to internal and external.
-
-External links:
-
-    https://travis-ci.com/juev/link-checker.svg
-    http://www.juev.org/
-    //yandex.ru
-
-All these links can be started with `http(s)` or `//`.
-
-Internal links can be relative and absolute:
-
-    /index.html
-    ../../style.css
-
-All internal links should be converted to external:
-
-1) Get protocol and domain name from URL
-1) Absolute link:
-    * protocol + domain + url
-1) Relative link:
-    * START_URL + url
-
-For information:
-http://www.faqs.org/rfcs/rfc1808.html
+    → ./bin/link-checker //ya.ru                                                                                                                                            
+    *  https://mail.yandex.ru                                                                                              200
+    *  https://yandex.ru                                                                                                   200
+    *  https://yandex.ru/blog/company/rss                                                                                  200
+    *  https://yandex.ru/company/press_releases/news.rss                                                                   200
+    *  https://yandex.ru/opensearch.xml                                                                                    200
+    *  https://yastatic.net/iconostasis/_/5mdPq4V7ghRgzBvMkCaTzd2fjYg.png                                                  200
+    *  https://yastatic.net/iconostasis/_/8lFaTHLDzmsEZz-5XaQg9iTWZGE.png                                                  200
+    *  https://yastatic.net/iconostasis/_/KnU823iWwj_vrPra7x9aQ-4yjRw.png                                                  200
+    *  https://yastatic.net/iconostasis/_/s-hGoCQMUosTziuARBks08IUxmc.png                                                  200
+    *  https://yastatic.net/iconostasis/_/wT9gfGZZ80sP0VsoR6dgDyXJf2Y.png                                                  200
+    *  https://yastatic.net/www/_/g/i/3gXxC6GpD9vzV7LpmvVwiuA1o.css                                                        200
