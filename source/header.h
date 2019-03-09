@@ -78,7 +78,6 @@ public:
       query = link.substr(queryStart, link.length() - queryStart);
     // change links to full link
     fullUrl = scheme + domain + path;
-    print();
   }
 
   string to_string()
