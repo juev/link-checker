@@ -1,0 +1,42 @@
+* link-checker-golang
+
+This is the implementation of my [[https://github.com/juev/link-checker][link-checker]] on golang
+
+Example:
+
+#+BEGIN_SRC bash
+  $ ./link-checker-golang https://solovyov.net/
+  URL: https://solovyov.net/
+  Visiting https://solovyov.net/ => 200
+  Visiting http://solovyov.net/blog.atom => 200
+  Visiting https://solovyov.net/blog/ => 200
+  Visiting https://solovyov.net/blog/2019/cpo/ => 200
+  Visiting http://solovyov.net/en.atom => 200
+  Visiting https://solovyov.net/en/ => 200
+  Visiting https://solovyov.net/en/2017/server-side-rendering/ => 200
+  Visiting http://twitter.com/asolovyov => 200
+  Visiting https://solovyov.net/photo/ => 200
+  Visiting http://www.linkedin.com/in/asolovyov => 999
+  Visiting https://solovyov.net/slides/ => 200
+  Visiting http://github.com/piranha/ => 200
+  Visiting http://osgameclones.com/ => 200
+  Visiting https://solovyov.net/showkr/ => 200
+  Visiting http://github.com/piranha/gostatic/ => 200
+  Visiting http://github.com/piranha/cyrax/ => 200
+  Visiting http://osgameclones.com => 200
+  Visiting http://github.com/piranha/goreplace/ => 200
+  Visiting http://github.com/piranha/shorrt/ => 200
+  Visiting http://github.com/piranha/webhooker/ => 200
+  Visiting http://github.com/piranha/nomad/ => 200
+  Visiting https://github.com/piranha/piu => 200
+  Visiting http://paste.in.ua => 403
+  Visiting https://github.com/piranha/adium-inline-images => 200
+  Visiting http://github.com/piranha/keymage/ => 200
+  Visiting http://github.com/piranha/keybind/ => 200
+  Visiting http://github.com/piranha/puttext/ => 200
+  Visiting http://github.com/piranha/tnetstrings.js/ => 200
+  Visiting http://tnetstrings.org => 200
+  Visiting http://github.com/piranha/opster/ => 200
+  Visiting https://solovyov.net/about/ => 200
+  Visiting https://www.flaticon.com/ => 200
+#+END_SRC
